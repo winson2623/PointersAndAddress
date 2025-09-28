@@ -1,8 +1,42 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
+#include<cstring>
 using namespace std;
 
 typedef int* IntPtr;
 
+//DEEP COPY
+class Student {
+public:
+	int roll;
+	char* name; //point to dynamic allocated memory
+
+	Student(int r, const char* n) { //constructor
+		roll = r;
+		name = new char[strlen(n) + 1]; //allocate memory
+		strcpy(name, n); //copy the string content
+	}
+
+	Student(const Student& other) { //Deep copy constructor
+		roll = other.roll; //copy roll
+		name = new char[strlen(other.name) + 1]; //allocate NEW memory
+		strcpy(name, other.name); //copy the content, not just the pointer
+	}
+
+	~Student() { //destructor
+		delete[] name;
+	}
+
+	void display() {
+		cout << "Roll: " << roll << ", Name: " << name << endl;
+	}
+
+	void setName(const char* newName) {
+		delete[] name; //free old memory
+		name = new char[strlen(newName) + 1]; //allocate new memory
+		strcpy(name, newName); //copy new content
+	}
+};
 
 
 //SHALLOW COPY
@@ -147,9 +181,19 @@ obj2.display(); //displays 10, 20, 30
 //the issue is obj1.z and obj2.z point to the same memory location, so if one is deleted, the other points to a deleted memory location
 
 
+//---------------------------------------------------------------------------------------------------------------------------
+//Chapter 11.4 Savitch Copy Constructors
+//DEEP Copy
 
+Student s1(101, "Alice"); //calls constructor
+s1.display();
 
+Student s2 = s1; //calls deep copy constructor
+s2.display();
 
+s1.setName("Bob"); //change name of s1
+s1.display(); //shows Bob
+s2.display(); //still shows Alice
 
 return 0;
 }
