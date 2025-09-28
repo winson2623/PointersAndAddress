@@ -3,6 +3,29 @@ using namespace std;
 
 typedef int* IntPtr;
 
+
+
+//SHALLOW COPY
+class Opp {
+	int a;
+	int b;
+	int* z;
+
+public: Opp() {
+	z = new int;
+}
+	  void input(int x, int y, int l) {
+		  a = x;
+		  b = y;
+		  *z = l;
+	  }
+	  void display() {
+		  cout << "value of a: " << a << endl;
+		  cout << "value of b: " << b << endl;
+		  cout << "value of z: " << *z << endl;
+	  }
+};
+
 int main()
 {
 	int v1 = 0;	//v1 holds [0]														v1 [0]  0x7800
@@ -75,6 +98,7 @@ int main()
 	//---------------------------------------------------------------------------------------------------------------------------
 	//Chapter 9.7 Savitch Two-Dimension Dynamic Arrays
 
+	/*
 	int d1, d2;
 	cout << "Enter row and columns: \n";
 	cin >> d1 >> d2;
@@ -107,6 +131,25 @@ int main()
 		delete[] m[j];					//deletes the row j
 	}
 	delete[] m;							//deletes array of row pointer
+*/
+	
 
-	return 0;
+
+//---------------------------------------------------------------------------------------------------------------------------
+//Chapter 11.4 Savitch Copy Constructors
+//SHALLOW Copy
+
+
+Opp obj1; //calls default constructor Opp()
+obj1.input(10, 20, 30);
+Opp obj2 = obj1; //compiler provides a default copy constructor which does a shallow copy
+obj2.display(); //displays 10, 20, 30
+//the issue is obj1.z and obj2.z point to the same memory location, so if one is deleted, the other points to a deleted memory location
+
+
+
+
+
+
+return 0;
 }
