@@ -72,6 +72,7 @@ void compareCstrings(const char* str1, const char* str2, int *count) { //added *
 
 int main()
 {
+	/*
 	int v1 = 0;	//v1 holds [0]														v1 [0]  0x7800
 	int *p1 = &v1; //p1 gets the address of v1, like 00x7800						p1      0x7800
 	*p1 = 77; //changes the value stored at address of v1 to hold [77]              v1 [77] 0x7800
@@ -142,7 +143,7 @@ int main()
 	//---------------------------------------------------------------------------------------------------------------------------
 	//Chapter 9.7 Savitch Two-Dimension Dynamic Arrays
 
-	/*
+	
 	int d1, d2;
 	cout << "Enter row and columns: \n";
 	cin >> d1 >> d2;
@@ -175,7 +176,7 @@ int main()
 		delete[] m[j];					//deletes the row j
 	}
 	delete[] m;							//deletes array of row pointer
-*/
+
 	
 
 
@@ -219,6 +220,48 @@ cout << "name count: " << count << endl;	//comparies how many char str is same, 
 
 compareCstrings("SMC", "SBCC", &count); // should set count to 2
 cout << "college count: " << count << endl;		//comparies how many char str is same, S and C is same so count = 2
+
+*/
+
+//-------------------------------------------------Pointers & Array Quiz-----------------------------------------------------------------------
+
+int arr[5] = { 3, 2, 11, 6, 7 };  // Initial array
+
+cout << "Initial array: ";
+for (int i = 0; i < 5; ++i) cout << arr[i] << " ";
+cout << endl;
+
+// Step 1:
+int* p = arr + *arr; // *arr = 3 ¡÷ p = arr + 3 ¡÷ p points to arr[3]
+cout << "Step 1: p = arr + *arr ¡÷ p points to arr[3] = " << *p << endl;
+
+// Step 2:
+arr[2] = (*p) + 4; // arr[2] = 6 + 4 = 10
+cout << "Step 2: arr[2] = (*p) + 4 ¡÷ arr[2] = " << arr[2] << endl;
+
+// Step 3:
+// p points to arr[3], so p[1] = arr[4]
+p[1] = *arr - 1;  // *arr = 3 ¡÷ arr[4] = 3 - 1 = 2
+cout << "Step 3: p[1] = *arr - 1 ¡÷ arr[4] = " << arr[4] << endl;
+
+// Step 4:
+p = p - 2; // p was arr[3] ¡÷ now p = arr[1]
+cout << "Step 4: p = p - 2 ¡÷ p now points to arr[1] = " << *p << endl;
+
+// Step 5:
+*(p - 1) = (*p) - 1; // arr[0] = arr[1] - 1 = 2 - 1 = 1
+cout << "Step 5: *(p - 1) = (*p) - 1 ¡÷ arr[0] = " << arr[0] << endl;
+
+// Step 6: didymus(p + 2); simulated inline
+int* q = p + 2;  // q = arr[1] + 2 = arr[3]
+cout << "Step 6: q = p + 2 ¡÷ q points to arr[3] = " << *q << endl;
+q = q - 3; // Now q points to arr[0]
+cout << "Inside didymus: q = q - 3 ¡÷ q now points to arr[0] = " << *q << endl;
+
+// Final array output
+cout << "Final array: ";
+for (int i = 0; i < 5; ++i) cout << arr[i] << " ";
+cout << endl;
 
 return 0;
 }
