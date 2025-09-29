@@ -60,6 +60,16 @@ public: Opp() {
 	  }
 };
 
+void compareCstrings(const char* str1, const char* str2, int *count) { //added * to because we are passing the address of int &count
+	*count = 0; //added * to access actual integer
+	while (*str1 != '\0' || *str2 != '\0') { //added * to str1, str2 to get actual characters of str
+		if (*str1 == *str2)
+			(*count)++;	//added * to count, we need to increment the int of count instead of the address
+		str1++;
+		str2++;
+	}
+}
+
 int main()
 {
 	int v1 = 0;	//v1 holds [0]														v1 [0]  0x7800
@@ -194,6 +204,21 @@ s2.display();
 s1.setName("Bob"); //change name of s1
 s1.display(); //shows Bob
 s2.display(); //still shows Alice
+
+
+
+
+int count = 0;
+cout << "original count: " << count << endl;
+
+compareCstrings("tacocat", "TACOCAT", &count);// should set count to 0
+cout << "taco count: " << count << endl;
+
+compareCstrings("Harry", "Malfoy", &count); // should set count to 1
+cout << "name count: " << count << endl;	//comparies how many char str is same, only a is same so count = 1
+
+compareCstrings("SMC", "SBCC", &count); // should set count to 2
+cout << "college count: " << count << endl;		//comparies how many char str is same, S and C is same so count = 2
 
 return 0;
 }
